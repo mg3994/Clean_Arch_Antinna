@@ -114,12 +114,13 @@ flutter:
     - path: assets/development/
       flavors:
         - development
-    - path: assets/staging/
-      flavors:
-        - staging
     - path: assets/production/
       flavors:
         - production
+    - path: assets/staging/
+      flavors:
+        - staging
+
     # - assets/development/logo/
     # - assets/staging/logo/
     # - assets/production/logo/

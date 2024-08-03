@@ -11,6 +11,13 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   enable-experiment:
     - macros
+  exclude:
+    - lib/server/*.g.dart
+    - test/_data/**
+    - build/**
+    - lib/generated/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
 
 linter:
   # The lint rules applied to this project can be customized in the
