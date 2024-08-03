@@ -40,3 +40,160 @@ envied_generator:
       url: https://github.com/ryanaidilp/envied.git
       path: packages/envied_generator
 ```
+
+
+
+```bash
+in my flutter app i am using this kind of pattern => 
+lib/
+ ├── base/
+ 
+ │   └── lifecycle_manager.dart
+ 
+ ├── config/
+ 
+ │   ├── env.dart
+ 
+ │   └── env.g.dart
+ 
+ ├── core/
+ 
+ │   ├── assets/
+ 
+ │   │   └── assets.gen.dart
+ 
+ │   ├── constants/
+ 
+ │   │   └── env_key_constant.dart
+ 
+ │   ├── di/
+ 
+ │   │   ├── service_locator.dart
+ 
+ │   │   └── register_module.dart
+ 
+ │   ├── exceptions/
+ 
+ │   │   └── exceptions.dart
+ 
+ │   ├── extensions/
+ 
+ │   │   ├── dartz_x.dart
+ 
+ │   │   └── string_x.dart
+ 
+ │   ├── failures/
+ 
+ │   │   └── failures.dart
+ 
+ │   ├── i18n/
+ 
+ │   │   ├── strings_id-ID.i18n.json
+ 
+ │   │   ├── strings.i18n.json
+ 
+ │   │   └── translations.g.dart
+ 
+ │   ├── log
+ 
+ │   ├── media_store
+ 
+ │   ├── messengers
+ 
+ │   ├── mixins
+ 
+ │   ├── network/
+ 
+ │   │   ├── http/
+ 
+ │   │   │   ├── interceptors
+ 
+ │   │   │   ├── modules
+ 
+ │   │   │   ├── http_client.dart
+ 
+ │   │   │   └── http_module.dart
+ 
+ │   │   ├── api_endpoint.dart
+ 
+ │   │   ├── api_error_type.dart
+ 
+ │   │   └── api_exceptions.dart
+ 
+ │   └── use_cases
+ 
+ ├── features/
+ 
+ │   ├── auth/
+ 
+ │   │   ├── data/
+ 
+ │   │   │   ├── data_sources
+ 
+ │   │   │   ├── models
+ 
+ │   │   │   └── repositories
+ 
+ │   │   ├── domain/
+ 
+ │   │   │   ├── entities
+ 
+ │   │   │   ├── repositories
+ 
+ │   │   │   └── use_cases
+ 
+ │   │   └── presentation/
+ 
+ │   │       ├── bloc
+ 
+ │   │       ├── pages
+ 
+ │   │       └── widgets
+ 
+ │   ├── create_document
+ 
+ │   ├── mail
+ 
+ │   ├── notification
+ 
+ │   ├── profile
+ 
+ │   └── recovery       
+ 
+ ├── router/
+ 
+ │   ├── guards/
+ 
+ │   │   ├── auth_guard.dart
+ 
+ │   │   └── guest_guard.dart
+ 
+ │   ├── observers
+ 
+ │   ├── results
+ 
+ │   ├── antinna_deeplink.dart
+ 
+ │   └── antinna_router.dart
+ 
+ ├── shared/
+ 
+ │   ├── widgets/
+ 
+ │   │   └── statistic_card.dart
+ 
+ │   └── models
+ 
+ ├── utils/
+ 
+ │   └── date_formatter_util.dart
+ 
+ ├── app.dart
+ 
+ ├── injection.dart
+ 
+ └── main.dart
+
+ |_bootstrap.dart
+
+```
