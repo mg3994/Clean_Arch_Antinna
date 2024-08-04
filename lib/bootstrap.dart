@@ -43,16 +43,19 @@
 import 'dart:io';
 
 import 'package:antinna/config/config.dart';
+import 'package:antinna/ui_kit/src/utils/widgets/banner_host.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 import 'ui_kit/src/inherited/backed_inherted_widget.dart';
 import 'ui_kit/src/utils/component_init.dart';
+// import 'ui_kit/src/utils/widgets/connection_monitor/conection_monitor.dart';
 
 class AntinnaApp extends StatefulWidget {
   const AntinnaApp({super.key, required this.config});
@@ -69,6 +72,16 @@ class _AntinnaAppState extends State<AntinnaApp> {
   NavigatorState? get navigatorState => _navigatorKey.currentState;
   final _deviceTypeNotifier = DeviceTypeOrientationNotifier();
   late Future<Backend> _appLoader;
+
+  late final _connectivity = _connectivityStream();
+
+  Stream<ConnectivityResult> _connectivityStream() async* {
+    final connectivity = Connectivity();
+    final result = await connectivity.checkConnectivity();
+    yield result.first;
+    yield* connectivity.onConnectivityChanged
+        .expand((results) => results); // Flatten the stream
+  }
 
   @override
   void initState() {
@@ -124,20 +137,56 @@ class _AntinnaAppState extends State<AntinnaApp> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Backend>(
-        future: _appLoader,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            //TODO: load splash here
-            return Center(child: CircularProgressIndicator.adaptive());
+    return StreamBuilder<ConnectivityResult>(
+        stream: _connectivity,
+        builder: (BuildContext context,
+            AsyncSnapshot<ConnectivityResult> streamSnapshot) {
+          if (streamSnapshot.connectionState != ConnectionState.active) {
+            return CircularProgressIndicator(); //TODO load splash here
           } else {
-            return BackendInheritedWidget(
-              backend: snapshot.requireData,
-              child: MainApp.app(
-                isIOS: kIsWeb ? false : Platform.isIOS,
-                config: snapshot.data!.config,
-              ),
-            );
+            final result = streamSnapshot.requireData;
+            return FutureBuilder<Backend>(
+                future: _appLoader,
+                builder: (context, futureSnapshot) {
+                  if (futureSnapshot.connectionState != ConnectionState.done) {
+                    //TODO: load splash here
+                    return Center(child: CircularProgressIndicator.adaptive());
+                  }
+                  return BackendInheritedWidget(
+                      backend: futureSnapshot.requireData,
+                      child: BannerHost(
+                        isConnected: result != ConnectivityResult.none,
+                        banner: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Theme(
+                              data: ThemeData.from(
+                                  colorScheme: ColorScheme.fromSeed(
+                                      seedColor: Colors.red)),
+                              child: Material(
+                                color: (result != ConnectivityResult.none)
+                                    ? Colors.green
+                                    : Colors.red,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 4.0, horizontal: 12.0),
+                                  child: Text(
+                                    (result != ConnectivityResult.none)
+                                        ? "Connected"
+                                        : 'No Internet',
+                                    style: const TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )),
+                        ),
+                        child: MainApp.app(
+                          isIOS: kIsWeb ? false : Platform.isIOS,
+                          config: futureSnapshot.data!.config,
+                        ),
+                      )
+                      //this
+                      );
+                });
           }
         });
   }
@@ -170,6 +219,7 @@ class MainAndroidApp extends MainApp {
       home: AntinnaDeviceTypeBuilder(builder: (BuildContext context,
           DeviceTypeOrientationState deviceType, Widget? child) {
         return Scaffold(
+          bottomNavigationBar: BottomAppBar(),
           appBar: AppBar(
             title: Text('Android App'),
           ),
