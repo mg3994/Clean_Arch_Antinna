@@ -1,4 +1,7 @@
 # antinna
+```bash
+flutter build appbundle --build-name=1.2.0 --build-number=2
+```
 
 # Prefix => `AT`
 A new Flutter project.

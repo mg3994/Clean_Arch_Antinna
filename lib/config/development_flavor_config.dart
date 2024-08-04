@@ -9,4 +9,6 @@ class DevelopmentConfig implements FlavorConfig {
 
   @override
   final flavor = Flavor.development;
+
+ 
 }

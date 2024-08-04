@@ -12,6 +12,7 @@ abstract class FlavorConfig {
   Uri get baseUrl;
   Flavor get flavor;
 
+
   factory FlavorConfig() {
     switch (appFlavor) {
       case "development":

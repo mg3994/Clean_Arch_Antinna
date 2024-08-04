@@ -9,4 +9,6 @@ class ProductionConfig implements FlavorConfig {
 
   @override
   final flavor = Flavor.production;
+
+  
 }
