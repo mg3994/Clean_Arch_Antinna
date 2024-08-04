@@ -47,7 +47,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -63,6 +63,8 @@ class AntinnaApp extends StatefulWidget {
 }
 
 class _AntinnaAppState extends State<AntinnaApp> {
+  // Future<void>? _splashLoader;
+  // Backend? _backend;
   final _navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState? get navigatorState => _navigatorKey.currentState;
   final _deviceTypeNotifier = DeviceTypeOrientationNotifier();

@@ -11,7 +11,7 @@ abstract class FlavorConfig {
   String get appName;
   Uri get baseUrl;
   Flavor get flavor;
-
+  // FirebaseOptions get firebaseOptions; //in future if required
 
   factory FlavorConfig() {
     switch (appFlavor) {
