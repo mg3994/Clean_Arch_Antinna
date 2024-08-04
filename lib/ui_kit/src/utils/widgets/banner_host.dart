@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/widgets.dart';
 
 class BannerHost extends StatefulWidget {
@@ -61,18 +63,20 @@ class BannerHostState extends State<BannerHost>
 
   @override
   Widget build(BuildContext context) {
-    return CustomMultiChildLayout(
-      delegate: _BannerHostDelegate(_animation),
-      children: [
-        LayoutId(
-          id: _BannerHostWidgetId.child,
-          child: widget.child,
-        ),
-        LayoutId(
-          id: _BannerHostWidgetId.banner,
-          child: widget.banner,
-        ),
-      ],
+    return SafeArea(
+      child: CustomMultiChildLayout(
+        delegate: _BannerHostDelegate(_animation),
+        children: [
+          LayoutId(
+            id: _BannerHostWidgetId.child,
+            child: widget.child,
+          ),
+          LayoutId(
+            id: _BannerHostWidgetId.banner,
+            child: widget.banner,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -87,12 +91,14 @@ class _BannerHostDelegate extends MultiChildLayoutDelegate {
   @override
   void performLayout(Size size) {
     layoutChild(_BannerHostWidgetId.child, BoxConstraints.tight(size));
-    positionChild(_BannerHostWidgetId.child, Offset.zero);
 
     final bannerSize = layoutChild(
       _BannerHostWidgetId.banner,
       BoxConstraints.tightFor(width: size.width),
     );
+    // positionChild(_BannerHostWidgetId.child,
+    //     Offset(0.0, 0.0 - (_animation.value * bannerSize.height))); //for youtube style but in that case the BannerHost rapper should be in side material or Cupertino APP say widget app because here child size is tight for height
+    positionChild(_BannerHostWidgetId.child, Offset.zero);
     positionChild(
       _BannerHostWidgetId.banner,
       Offset(

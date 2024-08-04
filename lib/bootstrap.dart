@@ -145,48 +145,50 @@ class _AntinnaAppState extends State<AntinnaApp> {
             return CircularProgressIndicator(); //TODO load splash here
           } else {
             final result = streamSnapshot.requireData;
-            return FutureBuilder<Backend>(
-                future: _appLoader,
-                builder: (context, futureSnapshot) {
-                  if (futureSnapshot.connectionState != ConnectionState.done) {
-                    //TODO: load splash here
-                    return Center(child: CircularProgressIndicator.adaptive());
-                  }
-                  return BackendInheritedWidget(
-                      backend: futureSnapshot.requireData,
-                      child: BannerHost(
-                        isConnected: result != ConnectivityResult.none,
-                        banner: Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: Theme(
-                              data: ThemeData.from(
-                                  colorScheme: ColorScheme.fromSeed(
-                                      seedColor: Colors.red)),
-                              child: Material(
-                                color: (result != ConnectivityResult.none)
-                                    ? Colors.green
-                                    : Colors.red,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 4.0, horizontal: 12.0),
-                                  child: Text(
-                                    (result != ConnectivityResult.none)
-                                        ? "Connected"
-                                        : 'No Internet',
-                                    style: const TextStyle(color: Colors.white),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )),
+            return BannerHost(
+              isConnected: result != ConnectivityResult.none,
+              banner: Directionality(
+                textDirection: TextDirection.ltr,
+                child: Theme(
+                    data: ThemeData.from(
+                        colorScheme:
+                            ColorScheme.fromSeed(seedColor: Colors.red)),
+                    child: Material(
+                      color: (result != ConnectivityResult.none)
+                          ? Colors.green
+                          : Colors.red,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 12.0),
+                        child: Text(
+                          (result != ConnectivityResult.none)
+                              ? "Connected"
+                              : 'No Internet',
+                          style: const TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
                         ),
+                      ),
+                    )),
+              ),
+              child: FutureBuilder<Backend>(
+                  future: _appLoader,
+                  builder: (context, futureSnapshot) {
+                    if (futureSnapshot.connectionState !=
+                        ConnectionState.done) {
+                      //TODO: load splash here
+                      return Center(
+                          child: CircularProgressIndicator.adaptive());
+                    }
+                    return BackendInheritedWidget(
+                        backend: futureSnapshot.requireData,
                         child: MainApp.app(
                           isIOS: kIsWeb ? false : Platform.isIOS,
                           config: futureSnapshot.data!.config,
-                        ),
-                      )
-                      //this
-                      );
-                });
+                        )
+                        //this
+                        );
+                  }),
+            );
           }
         });
   }
