@@ -133,7 +133,7 @@ class _AntinnaAppState extends State<AntinnaApp> {
               backend: snapshot.requireData,
               child: MainApp.app(
                 isIOS: kIsWeb ? false : Platform.isIOS,
-                config: widget.config,
+                config: snapshot.data!.config,
               ),
             );
           }
