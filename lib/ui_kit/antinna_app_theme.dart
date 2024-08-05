@@ -5,6 +5,8 @@ final appTheme = ThemeData(
     seedColor: appLightTheme.appColor0,
   ),
   useMaterial3: true,
+    scaffoldBackgroundColor: Color(0xFFf5f5f5), // Light theme background color
+    // scaffoldBackgroundColor: Color(0xFF303030), // Dark theme background color
   extensions: const [
     appLightTheme,
   ],

@@ -3,6 +3,8 @@ import 'package:antinna/bootstrap.dart';
 import 'package:flutter/material.dart';
 
 import 'config/config.dart';
+// import 'test.dart';
+import 'loading_indicator.dart';
 
 void main() {
   //HashStertgy //TODO
@@ -25,5 +27,6 @@ void main() {
   //   appRunner: () => runAppWithRecordError(),
   // );
   //dont add any extra function / method call in main function except runApp
-  runApp(AntinnaApp(config: config));
+  // runApp(AntinnaApp(config: config));
+  runApp(MaterialApp(home: MyApp()));
 }
