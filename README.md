@@ -3,6 +3,15 @@
 flutter build appbundle --build-name=1.2.0 --build-number=2
 ```
 
+```bash
+dart pub global activate \
+    --source=git https://github.com/dart-lang/dart_style \
+    --git-ref=flutter-style-experiment
+```
+```bash
+dart pub global run dart_style:format .
+```
+
 # Prefix => `AT`
 A new Flutter project.
 
@@ -44,7 +53,80 @@ envied_generator:
       path: packages/envied_generator
 ```
 
-
+```bash
+Error
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 296:3  throw_
+errors.dart:296
+dart-sdk/lib/_internal/js_shared/lib/rti.dart 1405:3                         _failedAsCheck
+rti.dart:1405
+dart-sdk/lib/_internal/js_shared/lib/rti.dart 1383:3                         _generalAsCheckImplementation
+rti.dart:1383
+dart-sdk/lib/async/stream_pipe.dart 441:34                                   [_handleData]
+stream_pipe.dart:441
+dart-sdk/lib/async/stream_pipe.dart 153:5                                    [_handleData]
+stream_pipe.dart:153
+dart-sdk/lib/async/zone.dart 1594:9                                          runUnaryGuarded
+zone.dart:1594
+dart-sdk/lib/async/stream_impl.dart 365:5                                    [_sendData]
+stream_impl.dart:365
+dart-sdk/lib/async/stream_impl.dart 541:13                                   perform
+stream_impl.dart:541
+dart-sdk/lib/async/stream_impl.dart 646:10                                   handleNext
+stream_impl.dart:646
+dart-sdk/lib/async/stream_impl.dart 617:7                                    callback
+stream_impl.dart:617
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+schedule_microtask.dart:40
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+schedule_microtask.dart:49
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 179:7           <fn>
+async_patch.dart:179
+Error
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 296:3  throw_
+errors.dart:296
+dart-sdk/lib/_internal/js_shared/lib/rti.dart 1405:3                         _failedAsCheck
+rti.dart:1405
+dart-sdk/lib/_internal/js_shared/lib/rti.dart 1383:3                         _generalAsCheckImplementation
+rti.dart:1383
+dart-sdk/lib/async/stream_pipe.dart 441:34                                   [_handleData]
+stream_pipe.dart:441
+dart-sdk/lib/async/stream_pipe.dart 153:5                                    [_handleData]
+stream_pipe.dart:153
+dart-sdk/lib/async/zone.dart 1594:9                                          runUnaryGuarded
+zone.dart:1594
+dart-sdk/lib/async/stream_impl.dart 365:5                                    [_sendData]
+stream_impl.dart:365
+dart-sdk/lib/async/stream_impl.dart 541:13                                   perform
+stream_impl.dart:541
+dart-sdk/lib/async/stream_impl.dart 646:10                                   handleNext
+stream_impl.dart:646
+dart-sdk/lib/async/stream_impl.dart 617:7                                    callback
+stream_impl.dart:617
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+schedule_microtask.dart:40
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+schedule_microtask.dart:49
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 179:7           <fn>
+async_patch.dart:179
+Error
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 296:3  throw_
+errors.dart:296
+dart-sdk/lib/_internal/js_shared/lib/rti.dart 1405:3                         _failedAsCheck
+rti.dart:1405
+dart-sdk/lib/_internal/js_shared/lib/rti.dart 1383:3                         _generalAsCheckImplementation
+rti.dart:1383
+dart-sdk/lib/async/stream_pipe.dart 441:34                                   [_handleData]
+stream_pipe.dart:441
+dart-sdk/lib/async/stream_pipe.dart 153:5                                    [_handleData]
+stream_pipe.dart:153
+dart-sdk/lib/async/zone.dart 1594:9                                          runUnaryGuarded
+zone.dart:1594
+dart-sdk/lib/async/stream_impl.dart 365:5                                    [_sendData]
+stream_impl.dart:365
+dart-sdk/lib/async/stream_impl.dart 541:13                                   perform
+stream_impl.dart:541
+dart-sdk/lib/async/stream_impl.dart 646:10                                   handleNext
+```
 
 ```bash
 in my flutter app i am using this kind of pattern => 

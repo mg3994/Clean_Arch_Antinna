@@ -5,14 +5,14 @@ import 'package:flutter/widgets.dart';
 class BannerHost extends StatefulWidget {
   const BannerHost({
     super.key,
-    required this.isConnected,
+    required this.hideBanner,
     required this.banner,
     required this.child,
     this.duration = const Duration(milliseconds: 400),
     this.curve = Curves.fastOutSlowIn,
   });
 
-  final bool isConnected;
+  final bool hideBanner;
   final Widget banner;
   final Widget child;
   final Duration? duration;
@@ -32,22 +32,21 @@ class BannerHostState extends State<BannerHost>
     super.initState();
     _controller = AnimationController(
       duration: widget.duration,
-      value: widget.isConnected ? 0.0 : 1.0,
+      value: widget.hideBanner ? 0.0 : 1.0,
       vsync: this,
     );
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: widget.curve,
-    );
+    _animation = CurvedAnimation(parent: _controller, curve: widget.curve);
   }
 
   @override
   void didUpdateWidget(covariant BannerHost oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.isConnected != widget.isConnected) {
-      if (widget.isConnected) {
-        Future.delayed(Duration(seconds: 1))
-            .whenComplete(() => _controller.reverse());
+    if (oldWidget.hideBanner != widget.hideBanner) {
+      if (widget.hideBanner) {
+        //hide banner
+        Future.delayed(Duration(seconds: 1)).whenComplete(
+          () => _controller.reverse(),
+        );
         // _controller.reverse();
       } else {
         _controller.forward();
@@ -67,14 +66,8 @@ class BannerHostState extends State<BannerHost>
       child: CustomMultiChildLayout(
         delegate: _BannerHostDelegate(_animation),
         children: [
-          LayoutId(
-            id: _BannerHostWidgetId.child,
-            child: widget.child,
-          ),
-          LayoutId(
-            id: _BannerHostWidgetId.banner,
-            child: widget.banner,
-          ),
+          LayoutId(id: _BannerHostWidgetId.child, child: widget.child),
+          LayoutId(id: _BannerHostWidgetId.banner, child: widget.banner),
         ],
       ),
     );
@@ -101,10 +94,7 @@ class _BannerHostDelegate extends MultiChildLayoutDelegate {
     positionChild(_BannerHostWidgetId.child, Offset.zero);
     positionChild(
       _BannerHostWidgetId.banner,
-      Offset(
-        0.0,
-        size.height - (_animation.value * bannerSize.height),
-      ),
+      Offset(0.0, size.height - (_animation.value * bannerSize.height)),
     );
   }
 

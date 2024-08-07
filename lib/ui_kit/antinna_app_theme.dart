@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
 final appTheme = ThemeData(
-  colorScheme: ColorScheme.fromSeed(
-    seedColor: appLightTheme.appColor0,
-  ),
+  colorScheme: ColorScheme.fromSeed(seedColor: appLightTheme.appColor0),
   useMaterial3: true,
-    scaffoldBackgroundColor: Color(0xFFf5f5f5), // Light theme background color
-    // scaffoldBackgroundColor: Color(0xFF303030), // Dark theme background color
-  extensions: const [
-    appLightTheme,
-  ],
+  scaffoldBackgroundColor: Color(0xFFf5f5f5), // Light theme background color
+  // scaffoldBackgroundColor: Color(0xFF303030), // Dark theme background color
+  extensions: const [appLightTheme],
 );
 
 const appLightTheme = AntinnaAppTheme(
@@ -48,7 +44,9 @@ class AntinnaAppTheme extends ThemeExtension<AntinnaAppTheme> {
 
   @override
   ThemeExtension<AntinnaAppTheme> lerp(
-      covariant AntinnaAppTheme other, double t) {
+    covariant AntinnaAppTheme other,
+    double t,
+  ) {
     return AntinnaAppTheme(
       appColor0: Color.lerp(appColor0, other.appColor0, t)!,
       appColor1: Color.lerp(appColor1, other.appColor1, t)!,

@@ -43,7 +43,7 @@
 import 'dart:io';
 
 import 'package:antinna/config/config.dart';
-import 'package:antinna/ui_kit/src/utils/widgets/banner_host.dart';
+// import 'package:component/component.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -53,6 +53,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 
+import 'ui_kit/app_theme.dart';
 import 'ui_kit/src/inherited/backed_inherted_widget.dart';
 import 'ui_kit/src/utils/component_init.dart';
 // import 'ui_kit/src/utils/widgets/connection_monitor/conection_monitor.dart';
@@ -76,11 +77,17 @@ class _AntinnaAppState extends State<AntinnaApp> {
   late final _connectivity = _connectivityStream();
 
   Stream<ConnectivityResult> _connectivityStream() async* {
-    final connectivity = Connectivity();
-    final result = await connectivity.checkConnectivity();
-    yield result.first;
-    yield* connectivity.onConnectivityChanged
-        .expand((results) => results); // Flatten the stream
+    try {
+      final connectivity = Connectivity();
+      final result = await connectivity.checkConnectivity();
+      yield result.first; //single distinct result only
+      yield* connectivity.onConnectivityChanged.expand(
+        (results) => results,
+      ); // Flatten the stream
+    } catch (e) {
+      // Handle the error appropriately
+      debugPrint('Connectivity error: $e');
+    }
   }
 
   @override
@@ -99,10 +106,7 @@ class _AntinnaAppState extends State<AntinnaApp> {
       // EquatableConfig.stringify = true;
     }
     await initializeDateFormatting(); //usefull For Manish //! TODO: support
-    final backend = await Backend.init(
-      widget.config,
-      _deviceTypeNotifier,
-    );
+    final backend = await Backend.init(widget.config, _deviceTypeNotifier);
     // _isLoggedIn = backend.authRepo.isLoggedIn;
     // _subIsLoggedIn = backend
     //     .authRepo //
@@ -138,59 +142,64 @@ class _AntinnaAppState extends State<AntinnaApp> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<ConnectivityResult>(
-        stream: _connectivity,
-        builder: (BuildContext context,
-            AsyncSnapshot<ConnectivityResult> streamSnapshot) {
-          if (streamSnapshot.connectionState != ConnectionState.active) {
-            return CircularProgressIndicator(); //TODO load splash here
-          } else {
-            final result = streamSnapshot.requireData;
-            return BannerHost(
-              isConnected: result != ConnectivityResult.none,
-              banner: Directionality(
-                textDirection: TextDirection.ltr,
-                child: Theme(
-                    data: ThemeData.from(
-                        colorScheme:
-                            ColorScheme.fromSeed(seedColor: Colors.red)),
-                    child: Material(
-                      color: (result != ConnectivityResult.none)
-                          ? Colors.green
-                          : Colors.red,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 4.0, horizontal: 12.0),
-                        child: Text(
-                          (result != ConnectivityResult.none)
-                              ? "Connected"
-                              : 'No Internet',
-                          style: const TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )),
+      stream: _connectivity,
+      builder: (
+        BuildContext context,
+        AsyncSnapshot<ConnectivityResult> streamSnapshot,
+      ) {
+        if (streamSnapshot.connectionState != ConnectionState.active) {
+          return CircularProgressIndicator(); //TODO load splash here
+        } else {
+          final result = streamSnapshot.requireData;
+          return BannerHost(
+            hideBanner: result != ConnectivityResult.none,
+            banner: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Theme(
+                data: ThemeData.from(
+                  colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+                ),
+                child: Material(
+                  color: (result != ConnectivityResult.none)
+                      ? Colors.green
+                      : Colors.red,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4.0,
+                      horizontal: 12.0,
+                    ),
+                    child: Text(
+                      (result != ConnectivityResult.none)
+                          ? "Connected"
+                          : 'No Internet',
+                      style: const TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
               ),
-              child: FutureBuilder<Backend>(
-                  future: _appLoader,
-                  builder: (context, futureSnapshot) {
-                    if (futureSnapshot.connectionState !=
-                        ConnectionState.done) {
-                      //TODO: load splash here
-                      return Center(
-                          child: CircularProgressIndicator.adaptive());
-                    }
-                    return BackendInheritedWidget(
-                        backend: futureSnapshot.requireData,
-                        child: MainApp.app(
-                          isIOS: kIsWeb ? false : Platform.isIOS,
-                          config: futureSnapshot.data!.config,
-                        )
-                        //this
-                        );
-                  }),
-            );
-          }
-        });
+            ),
+            child: FutureBuilder<Backend>(
+              future: _appLoader,
+              builder: (context, futureSnapshot) {
+                if (futureSnapshot.connectionState != ConnectionState.done) {
+                  //TODO: load splash here
+                  return Center(child: CircularProgressIndicator.adaptive());
+                }
+                return BackendInheritedWidget(
+                  backend: futureSnapshot.requireData,
+                  child: MainApp.app(
+                    isIOS: kIsWeb ? false : Platform.isIOS,
+                    config: futureSnapshot.data!.config,
+                  ),
+                  //this
+                );
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 }
 
@@ -200,13 +209,9 @@ abstract class MainApp extends StatelessWidget {
   // Factory constructor to handle different platforms
   factory MainApp.app({bool? isIOS, required FlavorConfig config}) {
     if (isIOS ?? false) {
-      return MainIosApp(
-        config: config,
-      );
+      return MainIosApp(config: config);
     } else {
-      return MainAndroidApp(
-        config: config,
-      );
+      return MainAndroidApp(config: config);
     }
   }
 }
@@ -218,26 +223,30 @@ class MainAndroidApp extends MainApp {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: config.appName,
-      home: AntinnaDeviceTypeBuilder(builder: (BuildContext context,
-          DeviceTypeOrientationState deviceType, Widget? child) {
-        return Scaffold(
-          bottomNavigationBar: BottomAppBar(),
-          appBar: AppBar(
-            title: Text('Android App'),
-          ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                    'This is the Android app on ${deviceType.deviceType} having ${deviceType.orientation}, may be ${deviceType.isPhone} ${config.flavor.name}',
-                    textAlign: TextAlign.center),
-                CircularProgressIndicator.adaptive(),
-              ],
+      home: AntinnaDeviceTypeBuilder(
+        builder: (
+          BuildContext context,
+          DeviceTypeOrientationState deviceType,
+          Widget? child,
+        ) {
+          return Scaffold(
+            bottomNavigationBar: BottomAppBar(),
+            appBar: AppBar(title: Text('Android App')),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'This is the Android app on ${deviceType.locales} ${deviceType.preferredLocale} ${deviceType.deviceType} having ${deviceType.orientation}, may be ${deviceType.isPhone} ${config.flavor.name},  ${deviceType.isDarkMode}',
+                    textAlign: TextAlign.center,
+                  ),
+                  CircularProgressIndicator.adaptive(),
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }
@@ -251,9 +260,7 @@ class MainIosApp extends MainApp {
   Widget build(BuildContext context) {
     return CupertinoApp(
       home: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text('Cupertino App'),
-        ),
+        navigationBar: CupertinoNavigationBar(middle: Text('Cupertino App')),
         child: Center(
           child: ElevatedButton(
             child: CircularProgressIndicator.adaptive(),

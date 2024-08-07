@@ -57,7 +57,9 @@ class Backend {
   // final CartRepo cartRepo;
 
   static Future<Backend> init(
-      FlavorConfig config, DeviceTypeOrientationNotifier deviceType) async {
+    FlavorConfig config,
+    DeviceTypeOrientationNotifier deviceType,
+  ) async {
     // late AuthRepo authRepo;
     // final apiService = ApiService(
     //   config.baseApiUrl,

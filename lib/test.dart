@@ -1548,12 +1548,14 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(
-          0xFF303030), // i like this background color the most how can i set in themedataof material for this andits alternate in dark theme
+        0xFF303030,
+      ), // i like this background color the most how can i set in themedataof material for this andits alternate in dark theme
       body: LayoutBuilder(
         builder: (context, constraints) {
           return ListView(
             padding: EdgeInsets.symmetric(
-                horizontal: constraints.maxWidth >= 1200 ? 100 : 20),
+              horizontal: constraints.maxWidth >= 1200 ? 100 : 20,
+            ),
             children: [
               constraints.maxWidth >= 980 ? Menu() : SizedBox(),
               Body(),
@@ -1585,7 +1587,7 @@ class Menu extends StatelessWidget {
           Row(
             children: [
               _menuItem(title: 'Sign In', isActive: true),
-              _registerButton()
+              _registerButton(),
             ],
           ),
         ],
@@ -1616,7 +1618,7 @@ class Menu extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   )
-                : SizedBox()
+                : SizedBox(),
           ],
         ),
       ),
@@ -1639,10 +1641,7 @@ class Menu extends StatelessWidget {
       ),
       child: Text(
         'Register',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black54,
-        ),
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54),
       ),
     );
   }
@@ -1664,16 +1663,16 @@ class Body extends StatelessWidget {
                   children: [
                     Text(
                       'Sign In to \nMy Application',
-                      style: TextStyle(
-                        fontSize: 45,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style:
+                          TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 30),
                     Text(
                       "If you don't have an account",
                       style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.bold),
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 10),
                     Row(
@@ -1681,8 +1680,9 @@ class Body extends StatelessWidget {
                         Text(
                           "You can",
                           style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SizedBox(width: 15),
                         GestureDetector(
@@ -1692,35 +1692,29 @@ class Body extends StatelessWidget {
                           child: Text(
                             "Register here!",
                             style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.deepPurple,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Image.asset(
-                      'assets/common/illustration-2.png',
-                      width: 300,
-                    ),
+                    Image.asset('assets/common/illustration-2.png', width: 300),
                   ],
                 ),
               ),
               Expanded(
                 flex: 1,
-                child: Image.asset(
-                  'assets/common/illustration-1.png',
-                  width: 300,
-                ),
+                child:
+                    Image.asset('assets/common/illustration-1.png', width: 300),
               ),
               Expanded(
                 flex: 1,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height / 6),
-                  child: Container(
-                    width: 320,
-                    child: _formLogin(),
+                    vertical: MediaQuery.of(context).size.height / 6,
                   ),
+                  child: Container(width: 320, child: _formLogin()),
                 ),
               ),
             ],
@@ -1735,16 +1729,16 @@ class Body extends StatelessWidget {
                   children: [
                     Text(
                       'Sign In to \nMy Application',
-                      style: TextStyle(
-                        fontSize: 45,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style:
+                          TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 30),
                     Text(
                       "If you don't have an account",
                       style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.bold),
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 10),
                     Row(
@@ -1752,8 +1746,9 @@ class Body extends StatelessWidget {
                         Text(
                           "You can",
                           style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SizedBox(width: 15),
                         GestureDetector(
@@ -1763,27 +1758,23 @@ class Body extends StatelessWidget {
                           child: Text(
                             "Register here!",
                             style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.deepPurple,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Image.asset(
-                      'assets/common/illustration-2.png',
-                      width: 300,
-                    ),
+                    Image.asset('assets/common/illustration-2.png', width: 300),
                   ],
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height / 6),
-                  child: Container(
-                    width: 320,
-                    child: _formLogin(),
+                    vertical: MediaQuery.of(context).size.height / 6,
                   ),
+                  child: Container(width: 320, child: _formLogin()),
                 ),
               ),
             ],
@@ -1798,16 +1789,16 @@ class Body extends StatelessWidget {
                   children: [
                     Text(
                       'Sign In to \nMy Application',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style:
+                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 20),
                     Text(
                       "If you don't have an account",
                       style: TextStyle(
-                          color: Colors.black54, fontWeight: FontWeight.bold),
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 10),
                     Row(
@@ -1815,8 +1806,9 @@ class Body extends StatelessWidget {
                         Text(
                           "You can",
                           style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SizedBox(width: 15),
                         GestureDetector(
@@ -1826,26 +1818,22 @@ class Body extends StatelessWidget {
                           child: Text(
                             "Register here!",
                             style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.deepPurple,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Image.asset(
-                      'assets/common/illustration-2.png',
-                      width: 300,
-                    ),
+                    Image.asset('assets/common/illustration-2.png', width: 300),
                   ],
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height / 6),
-                child: Container(
-                  width: 320,
-                  child: _formLogin(),
+                  vertical: MediaQuery.of(context).size.height / 6,
                 ),
+                child: Container(width: 320, child: _formLogin()),
               ),
             ],
           );
@@ -1879,10 +1867,7 @@ class Body extends StatelessWidget {
           decoration: InputDecoration(
             hintText: 'Password',
             counterText: 'Forgot password?',
-            suffixIcon: Icon(
-              Icons.visibility_off_outlined,
-              color: Colors.grey,
-            ),
+            suffixIcon: Icon(Icons.visibility_off_outlined, color: Colors.grey),
             filled: true,
             fillColor: Colors.blueGrey[50],
             labelStyle: TextStyle(fontSize: 12),
@@ -1903,13 +1888,9 @@ class Body extends StatelessWidget {
           height: 45,
           color: Colors.deepPurple,
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            "Sign In",
-            style: TextStyle(color: Colors.white),
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Text("Sign In", style: TextStyle(color: Colors.white)),
         ),
         SizedBox(height: 20),
         Row(
@@ -1948,12 +1929,7 @@ class Body extends StatelessWidget {
       color: backgroundColor,
       shape: CircleBorder(),
       padding: EdgeInsets.all(16),
-      child: Image.asset(
-        iconPath,
-        color: Colors.white,
-        height: 20,
-        width: 20,
-      ),
+      child: Image.asset(iconPath, color: Colors.white, height: 20, width: 20),
     );
   }
 }

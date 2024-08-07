@@ -1,4 +1,4 @@
-part of 'config.dart';
+part of '../config.dart';
 
 class ProductionConfig implements FlavorConfig {
   @override

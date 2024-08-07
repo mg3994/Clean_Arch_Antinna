@@ -21,6 +21,7 @@ version: 1.0.0+1
 environment:
   sdk: ^3.6.0-109.0.dev
 
+# resolution: workspace
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -195,3 +196,7 @@ flutter:
 #
 # For details regarding fonts from package dependencies,
 # see https://flutter.dev/to/font-from-package
+
+# Declare all packages that are part of the workspace.
+# workspace:
+#   - test

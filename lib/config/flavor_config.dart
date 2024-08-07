@@ -4,7 +4,7 @@ enum Flavor {
   // set them in alphabatical order with full name
   development,
   production,
-  staging
+  staging,
 }
 
 abstract class FlavorConfig {
