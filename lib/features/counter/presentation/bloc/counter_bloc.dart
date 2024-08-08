@@ -18,17 +18,22 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
 
   CounterBloc(this.getCounterUseCase, this.decrementCounterUseCase,
       this.incrementCounterUseCase)
-      : super(const _CounterInitial(CounterEntity(value: 0))) {
+      : super(const _CounterInitial(counter: CounterEntity(value: 0))) {
     on<CounterEvent>((event, emit) async {
+      // Start loading
+      emit(state.copyWith(isLoading: true));
       await event.when(
         getCounter: () async {
           try {
             final counter = await getCounterUseCase.execute();
 
-            emit(_CounterLoaded(counter));
+            emit(_CounterLoaded(counter: counter, isLoading: false));
           } catch (e) {
             emit(const _CounterError(
-                "Error Loading Counter", CounterEntity(value: 0)));
+              message: "Error Loading Counter",
+              counter: CounterEntity(value: 0),
+              isLoading: false,
+            ));
           }
 
           // emit(state);
@@ -38,19 +43,23 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
           // emit(CounterState.loaded(CounterEntity(value: currentValue + 1)));
           try {
             final counter = await incrementCounterUseCase.execute();
-            emit(_CounterLoaded(counter));
+            emit(_CounterLoaded(counter: counter, isLoading: false));
           } catch (e) {
             emit(const _CounterError(
-                "Error Loading Counter", CounterEntity(value: 0)));
+                message: "Error Loading Counter",
+                counter: CounterEntity(value: 0),
+                isLoading: false));
           }
         },
         decrementCounter: () async {
           try {
             final counter = await decrementCounterUseCase.execute();
-            emit(_CounterLoaded(counter));
+            emit(_CounterLoaded(counter: counter, isLoading: false));
           } catch (e) {
             emit(const _CounterError(
-                "Error Loading Counter", CounterEntity(value: 0)));
+                message: "Error Loading Counter",
+                counter: CounterEntity(value: 0),
+                isLoading: false));
           }
 
           // final currentValue = state.counter.value;

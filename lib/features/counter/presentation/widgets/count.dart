@@ -5,7 +5,7 @@ class Count extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CounterBloc, CounterState>(
+    return BlocConsumer<CounterBloc, CounterState>(
       builder: (context, state) {
         int value = state.counter.value;
         return Center(
@@ -14,6 +14,16 @@ class Count extends StatelessWidget {
             style: const TextStyle(fontSize: 100),
           ),
         );
+      },
+      listener: (BuildContext context, CounterState state) {
+        if (state.isLoading) {
+          print("if" + state.isLoading.toString() + "${state.counter.value}");
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text("${state.counter.value}")));
+        } else {
+          print("else" + state.isLoading.toString() + "${state.counter.value}");
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        }
       },
     );
   }
