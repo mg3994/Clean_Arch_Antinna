@@ -53,7 +53,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 
-import 'features/counter/presentation/pages/counter_page.dart';
+import 'features/counter/counter.dart';
 import 'ui_kit/app_theme.dart';
 import 'ui_kit/src/inherited/backed_inherted_widget.dart';
 import 'ui_kit/src/utils/component_init.dart';
@@ -230,7 +230,7 @@ class MainAndroidApp extends MainApp {
           DeviceTypeOrientationState deviceType,
           Widget? child,
         ) {
-          return CounterPage();
+          return const CounterPage();
 
           //  Scaffold(
           //   bottomNavigationBar: BottomAppBar(),
