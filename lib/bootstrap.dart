@@ -53,6 +53,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 
+import 'features/counter/presentation/pages/counter_page.dart';
 import 'ui_kit/app_theme.dart';
 import 'ui_kit/src/inherited/backed_inherted_widget.dart';
 import 'ui_kit/src/utils/component_init.dart';
@@ -229,22 +230,24 @@ class MainAndroidApp extends MainApp {
           DeviceTypeOrientationState deviceType,
           Widget? child,
         ) {
-          return Scaffold(
-            bottomNavigationBar: BottomAppBar(),
-            appBar: AppBar(title: Text('Android App')),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'This is the Android app on ${deviceType.locales} ${deviceType.preferredLocale} ${deviceType.deviceType} having ${deviceType.orientation}, may be ${deviceType.isPhone} ${config.flavor.name},  ${deviceType.isDarkMode}',
-                    textAlign: TextAlign.center,
-                  ),
-                  CircularProgressIndicator.adaptive(),
-                ],
-              ),
-            ),
-          );
+          return CounterPage();
+
+          //  Scaffold(
+          //   bottomNavigationBar: BottomAppBar(),
+          //   appBar: AppBar(title: Text('Android App')),
+          //   body: Center(
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Text(
+          //           'This is the Android app on ${deviceType.locales} ${deviceType.preferredLocale} ${deviceType.deviceType} having ${deviceType.orientation}, may be ${deviceType.isPhone} ${config.flavor.name},  ${deviceType.isDarkMode}',
+          //           textAlign: TextAlign.center,
+          //         ),
+          //         CircularProgressIndicator.adaptive(),
+          //       ],
+          //     ),
+          //   ),
+          // );
         },
       ),
     );

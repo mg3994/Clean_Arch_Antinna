@@ -11,16 +11,20 @@ class IncrementDecrementButtons extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-                onPressed: () => context
-                    .read<CounterBloc>()
-                    .add(const CounterEvent.incrementCounter())),
+              onPressed: () => context
+                  .read<CounterBloc>()
+                  .add(const CounterEvent.incrementCounter()),
+              child: Icon(Icons.add_outlined),
+            ),
             SizedBox(
               height: 20,
             ),
             FloatingActionButton(
-                onPressed: () => context
-                    .read<CounterBloc>()
-                    .add(const CounterEvent.decrementCounter())),
+              onPressed: () => context
+                  .read<CounterBloc>()
+                  .add(const CounterEvent.decrementCounter()),
+              child: Icon(Icons.remove_outlined),
+            ),
           ],
         );
       },
