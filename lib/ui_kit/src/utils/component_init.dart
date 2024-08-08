@@ -165,10 +165,10 @@ class DeviceTypeOrientationState {
   });
 
   const DeviceTypeOrientationState.unknown()
-    : deviceType = DeviceType.unknown,
-      orientation = DeviceOrientation.unknown,
-      brightness = Brightness.light,
-      locales = const [];
+      : deviceType = DeviceType.unknown,
+        orientation = DeviceOrientation.unknown,
+        brightness = Brightness.light,
+        locales = const [];
 
   final DeviceType deviceType;
   final DeviceOrientation orientation;
@@ -211,7 +211,7 @@ class DeviceTypeOrientationNotifier extends ChangeNotifier
     with WidgetsBindingObserver {
   DeviceTypeOrientationNotifier();
 
-  var _state = DeviceTypeOrientationState.unknown();
+  var _state = const DeviceTypeOrientationState.unknown();
 
   bool get isTablet => _state.isTablet;
 
@@ -224,6 +224,9 @@ class DeviceTypeOrientationNotifier extends ChangeNotifier
   bool get isDarkMode => _state.isDarkMode;
 
   List<Locale> get locales => _state.locales;
+
+  Locale get preferredLocale =>
+      locales.isNotEmpty ? locales.first : const Locale('en', 'US');
 
   void init() {
     WidgetsBinding.instance.addObserver(this);
@@ -324,13 +327,13 @@ class AntinnaDeviceTypeBuilder extends StatelessWidget {
   final Widget? child;
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
-    animation: context.deviceType,
-    builder: (BuildContext context, Widget? child) {
-      final state = context.deviceType._state;
-      return builder(context, state, child);
-    },
-    child: child,
-  );
+        animation: context.deviceType,
+        builder: (BuildContext context, Widget? child) {
+          final state = context.deviceType._state;
+          return builder(context, state, child);
+        },
+        child: child,
+      );
 }
 
 // extension DeviceTypeContext on BuildContext {
