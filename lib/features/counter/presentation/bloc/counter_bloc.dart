@@ -26,7 +26,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
       await event.when(
         getCounter: () async {
           try {
-            final counter = await getCounterUseCase.execute();
+            final counter = await getCounterUseCase();
 
             emit(_CounterLoaded(counter: counter, isLoading: false));
           } catch (e) {
@@ -43,7 +43,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
           // final currentValue = state.counter.value;
           // emit(CounterState.loaded(CounterEntity(value: currentValue + 1)));
           try {
-            final counter = await incrementCounterUseCase.execute();
+            final counter = await incrementCounterUseCase();
             emit(_CounterLoaded(counter: counter, isLoading: false));
           } catch (e) {
             emit(const _CounterError(
@@ -54,7 +54,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
         },
         decrementCounter: () async {
           try {
-            final counter = await decrementCounterUseCase.execute();
+            final counter = await decrementCounterUseCase();
             emit(_CounterLoaded(counter: counter, isLoading: false));
           } catch (e) {
             emit(const _CounterError(

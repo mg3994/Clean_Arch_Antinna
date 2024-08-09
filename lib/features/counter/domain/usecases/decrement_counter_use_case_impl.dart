@@ -13,13 +13,13 @@ class DecrementCounterUseCaseImpl implements CounterUseCase {
   // Asynchronous method to execute the usecase and increment the counter value
 
   @override
-  Future<CounterEntity> execute() async {
+  Future<CounterEntity> call() async {
     // Use the counterRepository to get the current counter value
     final currentCounter = await _counterRepository.getCounter();
     // Decrement the current counter value
     final updatedCounterEntity = CounterEntity(value: currentCounter.value - 1);
     // Save the updated counter entity
-    await _counterRepository.saveCounter(updatedCounterEntity);
+    await _counterRepository.setCounter(updatedCounterEntity);
     // Return the updated counter entity
     return updatedCounterEntity;
   }

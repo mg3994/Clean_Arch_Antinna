@@ -1,7 +1,5 @@
 import '../../data/models/counter_model.dart';
 
-
-
 import '../../domain/entities/counter_entity.dart';
 import '../../domain/repositories/counter_repository.dart';
 import '../datasources/local/counter_datasource.dart';
@@ -23,9 +21,9 @@ class CounterRepositoryImpl implements CounterRepository {
 
   // Override method to save the counter value using a CounterEntity
   @override
-  Future<void> saveCounter(CounterEntity counterEntity) {
+  Future<void> setCounter(CounterEntity counterEntity) {
     // Save the counter value using the CounterDataSource and CounterModel
-    return _counterDatasource.saveCounter(
+    return _counterDatasource.setCounter(
         counterModel: CounterModel(value: counterEntity.value));
   }
 }

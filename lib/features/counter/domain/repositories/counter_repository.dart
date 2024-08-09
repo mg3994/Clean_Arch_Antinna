@@ -6,5 +6,5 @@ abstract class CounterRepository {
 // Asynchronous method declaration to get counter value
   Future<CounterEntity> getCounter();
 // Asynchronous method declaration to save the value of counter
-  Future<void> saveCounter(CounterEntity counterEntity);
+  Future<void> setCounter(CounterEntity counterEntity);
 }

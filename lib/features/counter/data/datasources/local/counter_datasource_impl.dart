@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+
 
 import '../../../data/models/counter_model.dart';
 import 'counter_datasource.dart';
@@ -21,7 +21,7 @@ class CounterDatasourceImpl implements CounterDatasource {
 
   //Asynchronous function to save the counter value using a CounterModel
   @override
-  Future<void> saveCounter({required CounterModel counterModel}) async {
+  Future<void> setCounter({required CounterModel counterModel}) async {
     // Update the private variable '_value' with the value from the provided counterModel as argumet
     // await Future.delayed(Duration(seconds: 4));
 

@@ -12,7 +12,7 @@ class GetCounterUseCaseImpl implements CounterUseCase {
   const GetCounterUseCaseImpl( this._counterRepository);
   //Asynchronous method to execute the usecase and get the counter value
   @override
-  Future<CounterEntity> execute() async {
+  Future<CounterEntity> call() async {
     // Use the CounterRepository to get the counter value asynchronously
     return await _counterRepository.getCounter();
   }
