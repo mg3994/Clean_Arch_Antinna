@@ -1,7 +1,5 @@
-import '../../domain/usecases/decrement_counter_use_case.dart';
-import '../../domain/usecases/increment_counter_use_case.dart';
+import '../../domain/usecases/counter_use_Case.dart';
 
-import '../../domain/usecases/get_counter_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,9 +10,12 @@ part 'counter_state.dart';
 part 'counter_bloc.freezed.dart';
 
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
-  final GetCounterUseCase getCounterUseCase;
-  final IncrementCounterUseCase incrementCounterUseCase;
-  final DecrementCounterUseCase decrementCounterUseCase;
+  // final CounterUseCase getCounterUseCase;
+  // final CounterUseCase incrementCounterUseCase;
+  // final CounterUseCase decrementCounterUseCase;
+  final CounterUseCase getCounterUseCase,
+      incrementCounterUseCase,
+      decrementCounterUseCase;
 
   CounterBloc(this.getCounterUseCase, this.decrementCounterUseCase,
       this.incrementCounterUseCase)
