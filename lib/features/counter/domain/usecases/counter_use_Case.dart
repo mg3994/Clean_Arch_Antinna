@@ -1,5 +1,6 @@
-import '../entities/counter_entity.dart';
 // import '../repositories/counter_repository.dart';
+
+import '../entities/counter_entity.dart';
 
 abstract class CounterUseCase {
   // CounterRepository get _counterRepository;

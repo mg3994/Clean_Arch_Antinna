@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/usecases/counter_use_Case.dart';
+import '../../domain/usecases/counter_use_case.dart';
 import '../../domain/usecases/decrement_counter_use_case_impl.dart';
 import '../../domain/usecases/get_counter_use_case_impl.dart';
 import '../../domain/usecases/increment_counter_use_case_impl.dart';

@@ -2,7 +2,7 @@
 import '../entities/counter_entity.dart';
 
 import '../repositories/counter_repository.dart';
-import 'counter_use_Case.dart';
+import 'counter_use_case.dart';
 
 //  Define a Flutter class with name GetCounterUsecase
 class GetCounterUseCaseImpl implements CounterUseCase {
